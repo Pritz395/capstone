@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import joblib
@@ -31,7 +32,8 @@ def load_runtime():
     _model = joblib.load(MODELS_DIR / "best_model.joblib")
     _scaler = joblib.load(MODELS_DIR / "scaler.joblib")
     _feature_cols = joblib.load(MODELS_DIR / "feature_cols.joblib")
-    _best_name = (MODELS_DIR / "best_model_name.txt").read_text().strip()
+    name_path = MODELS_DIR / "best_model_name.txt"
+    _best_name = name_path.read_text().strip() if name_path.exists() else "Random Forest"
     imp_path = ARTIFACTS_DIR / "shap_feature_importance.csv"
     if imp_path.exists():
         _importance = pd.read_csv(imp_path)
@@ -44,6 +46,15 @@ def feature_base(name: str) -> str:
         if name.startswith(key):
             return key
     return name
+
+
+@app.route("/health")
+def health():
+    try:
+        load_runtime()
+        return jsonify({"status": "ok", "model": _best_name}), 200
+    except Exception as exc:  # noqa: BLE001
+        return jsonify({"status": "error", "detail": str(exc)}), 500
 
 
 @app.route("/")
@@ -81,8 +92,6 @@ def predict():
     pred = int(proba >= 0.5)
     label = "Malignant" if pred == 1 else "Benign"
 
-    # Lightweight local explanation using feature deviations vs training-scale
-    # Prefer SHAP tree values when available; otherwise use top global features
     contributions = []
     try:
         import shap
@@ -150,4 +159,6 @@ def sample(label: str):
 
 if __name__ == "__main__":
     load_runtime()
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    port = int(os.environ.get("PORT", "5000"))
+    debug = os.environ.get("FLASK_DEBUG", "0") == "1"
+    app.run(host="0.0.0.0", port=port, debug=debug)

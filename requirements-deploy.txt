@@ -1,0 +1,8 @@
+# Lean deps for cloud hosting (serves the deployed Random Forest + SHAP UI)
+numpy>=1.26
+pandas>=2.1
+scikit-learn>=1.4
+shap>=0.45
+flask>=3.0
+gunicorn>=22.0
+joblib>=1.3
