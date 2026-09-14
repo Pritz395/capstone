@@ -27,6 +27,8 @@ Everything gathered for the capstone, mapped to how we use it.
 | `An_Explainable_Artificial_Intelligence_Model_for_t.pdf` | IEEE Access XAI classification of breast cancer (Khater et al.) | Closest template: WDBC + ML + model-agnostic XAI; reports ~97.7–98.6% |
 | `1-s2.0-S2772442524000558-main.pdf` | Healthcare Analytics: ML + LASSO/SHAP feature selection | SHAP for feature selection + high accuracy on breast cancer tabular data |
 | `s41598-025-97718-5.pdf` | Scientific Reports: DNBCD on histopathology + ultrasound + Grad-CAM | Image/XAI path if you extend beyond WDBC later |
+| `An_Explainable_Artificial_Intelligence_Framework_f.pdf` | IJEEEMI 2025: XAI framework for breast cancer (Ridha et al.) | Thermal imaging (DMR): Attention U-Net + K-Means + EfficientNet-B7 + **LIME**; val acc ~91.7% — cite for LIME / image-framework comparison |
+| `fimmu-16-1658741.pdf` | Frontiers in Immunology 2025: hybrid DL + XAI (Zou & Miao) | Ultrasound: fused DenseNet121 + Xception + VGG16 + **Grad-CAM++**; ~97% accuracy — cite for Week 9 image/Grad-CAM extension |
 
 ## Online papers / reviews
 

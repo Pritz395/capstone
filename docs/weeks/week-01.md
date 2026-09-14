@@ -26,6 +26,8 @@ Data → Preprocessing → ML/DL Models → Prediction → XAI → Explanation
 - Khater et al. IEEE Access XAI + WDBC (local PDF)  
 - Shaon et al. Healthcare Analytics + SHAP (local PDF)  
 - Alom et al. Scientific Reports histopathology/US + Grad-CAM (local PDF; future track)  
+- Ridha et al. IJEEEMI 2025 thermal + EfficientNet-B7 + LIME (local PDF; future / lit survey)  
+- Zou & Miao Frontiers 2025 hybrid CNN fusion + Grad-CAM++ on ultrasound (local PDF; Week 9 track)  
 - PubMed reviews: 39430216, 37278831, 36103745, 39403286  
 - WHO breast cancer fact sheet; OHSL BCDA; PLCO CDAS (reference only)
 
