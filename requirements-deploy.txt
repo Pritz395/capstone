@@ -1,8 +1,9 @@
-# Lean deps for cloud hosting (serves the deployed Random Forest + SHAP UI)
+# Used by Streamlit Community Cloud (lean runtime)
 numpy>=1.26
 pandas>=2.1
 scikit-learn>=1.4
 shap>=0.45
+streamlit>=1.32
+joblib>=1.3
 flask>=3.0
 gunicorn>=22.0
-joblib>=1.3

@@ -1,20 +1,18 @@
-# Deploy the demo UI (always-on)
+# Deploy the demo UI (always-on, no paid plan)
 
-The app is deploy-ready on GitHub (`render.yaml`, `Dockerfile`, `Procfile`, inference models committed).
+Render asked for payment — **skip it.** Use Streamlit Community Cloud instead (free for public repos).
 
-## Option A — Render (recommended, free)
+## Option A — Streamlit Community Cloud (recommended, free)
 
-1. Open this link (signed in with the GitHub account that owns the repo):  
-   **https://render.com/deploy?repo=https://github.com/Pritz395/capstone**
-2. Click **Apply** / create the Blueprint service `capstone-breast-xai`
-3. Wait for the first build (a few minutes)
-4. Open the `.onrender.com` URL Render gives you
+1. Open **https://share.streamlit.io/** (or https://streamlit.io/cloud)
+2. Sign in with **GitHub** (`Pritz395`)
+3. **Create app** → pick repo `Pritz395/capstone` → branch `main`
+4. Main file: **`streamlit_app.py`**
+5. Deploy → wait a few minutes → you get a permanent `*.streamlit.app` URL
 
-Cold starts on the free plan can take ~30–60s after idle.
+That’s the link to show your professor (no laptop relaunch needed).
 
-## Option B — Local + Cloudflare tunnel (temporary public URL)
-
-Keep the laptop awake and Flask running:
+## Option B — Temporary public URL (laptop must stay awake)
 
 ```bash
 cd /Users/preetham/Desktop/Projekt/capstone
@@ -24,14 +22,20 @@ python app.py
 cloudflared tunnel --url http://127.0.0.1:5000
 ```
 
-Use the `https://….trycloudflare.com` link it prints. This dies when you stop the tunnel or sleep the machine.
+## Local Streamlit (optional)
 
-## What’s already in the repo for hosting
+```bash
+source .venv/bin/activate
+pip install -r requirements-dev.txt   # full ML stack for training
+streamlit run streamlit_app.py
+```
+
+## Repo hosting notes
 
 | File | Purpose |
 |---|---|
-| `requirements-deploy.txt` | Lean prod deps (Flask, sklearn, SHAP, gunicorn) |
-| `Procfile` / `render.yaml` | Render start command |
-| `Dockerfile` | Alternate container deploy |
-| `models/best_model.joblib` (+ scaler, feature_cols) | Shipped so cloud doesn’t need to retrain |
-| `/health` | Health check endpoint |
+| `streamlit_app.py` | Free-cloud demo UI |
+| `requirements.txt` | Lean deps for Streamlit Cloud |
+| `requirements-dev.txt` | Full local stack (XGBoost, CatBoost, etc.) |
+| `models/best_model.joblib` (+ scaler, feature_cols) | Shipped so cloud doesn’t retrain |
+| `app.py` | Original Flask UI (local / optional) |

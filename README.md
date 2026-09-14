@@ -23,13 +23,16 @@ Roadmap: [`docs/ROADMAP_12_WEEKS.md`](docs/ROADMAP_12_WEEKS.md)
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements-dev.txt   # local training stack
 
 python -m src.eda      # Week 2 — exploratory analysis
 python -m src.train    # Week 3 — train & compare models
 python -m src.explain  # Week 6–7 scaffold — SHAP / LIME
-python app.py          # Week 8 scaffold — web UI @ http://127.0.0.1:5000
+streamlit run streamlit_app.py   # demo UI (also deployed on Streamlit Cloud)
+# or: python app.py              # Flask UI @ http://127.0.0.1:5000
 ```
+
+**Always-on demo:** see [`docs/DEPLOY.md`](docs/DEPLOY.md) (Streamlit Community Cloud — free, no card).
 
 ## Repo layout
 

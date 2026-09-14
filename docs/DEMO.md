@@ -2,10 +2,10 @@
 
 ## Start the UI (before the meeting)
 
-**Public demo (temporary tunnel — laptop must stay awake):**  
-https://crimes-whale-adapted-effectively.trycloudflare.com
+**Always-on (free):** deploy via Streamlit Cloud — see `docs/DEPLOY.md`  
+Main file: `streamlit_app.py`
 
-**Permanent hosting:** follow `docs/DEPLOY.md` (Render one-click). Until then, local:
+**Local Flask (optional):**
 
 ```bash
 cd /Users/preetham/Desktop/Projekt/capstone
@@ -15,7 +15,11 @@ python app.py
 
 Open: **http://127.0.0.1:5000**
 
-If models are missing:
+**Local Streamlit:**
+
+```bash
+streamlit run streamlit_app.py
+```
 
 ```bash
 python -m src.train
