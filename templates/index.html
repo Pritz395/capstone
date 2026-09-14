@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Explainable Breast Cancer Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a2332;
+      --muted: #5b6b7c;
+      --paper: #f6f1ea;
+      --card: #fffdf9;
+      --line: #d9cfc3;
+      --accent: #0f6a6a;
+      --accent-2: #b85c38;
+      --good: #1f7a4d;
+      --bad: #a33b3b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, #ffe8d6 0%, transparent 40%),
+        radial-gradient(circle at 90% 10%, #d9efe8 0%, transparent 35%),
+        var(--paper);
+      min-height: 100vh;
+    }
+    header {
+      padding: 2.2rem 1.25rem 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      margin: 0 0 0.4rem;
+      line-height: 1.15;
+    }
+    .sub { color: var(--muted); max-width: 60ch; line-height: 1.5; }
+    .badge {
+      display: inline-block;
+      margin-top: 0.8rem;
+      background: #e7f3f1;
+      color: var(--accent);
+      border: 1px solid #b9d9d4;
+      border-radius: 999px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.25rem 3rem;
+      display: grid;
+      gap: 1.25rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1.25rem;
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.1rem 1.2rem;
+      box-shadow: 0 10px 30px rgba(26, 35, 50, 0.04);
+    }
+    h2 {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.2rem;
+      margin: 0 0 0.8rem;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.9rem; }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 0.65rem 1rem;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .primary { background: var(--accent); color: white; }
+    .ghost { background: #efe8df; color: var(--ink); }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.55rem;
+      max-height: 420px;
+      overflow: auto;
+      padding-right: 0.25rem;
+    }
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    input {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.45rem 0.55rem;
+      font: inherit;
+      color: var(--ink);
+      background: white;
+    }
+    .result {
+      border-radius: 12px;
+      padding: 1rem;
+      background: #f3eee7;
+      min-height: 120px;
+    }
+    .label-pill {
+      display: inline-block;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .benign { background: #d9f2e4; color: var(--good); }
+    .malignant { background: #f8dede; color: var(--bad); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { text-align: left; padding: 0.4rem 0.3rem; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 500; }
+    .contrib { margin-top: 0.9rem; }
+    .bar {
+      height: 8px;
+      border-radius: 999px;
+      background: #e8e0d6;
+      overflow: hidden;
+      margin-top: 0.25rem;
+    }
+    .bar > span { display: block; height: 100%; background: var(--accent-2); }
+    .muted { color: var(--muted); font-size: 0.85rem; }
+    footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.25rem 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Explainable AI for Early Breast Cancer Detection</h1>
+    <p class="sub">
+      Clinical tumor features (Wisconsin Diagnostic Breast Cancer) → preprocessing →
+      compared ML models → prediction → SHAP explanations for clinicians.
+    </p>
+    <div class="badge">Best model in this run: {{ best_name }}</div>
+  </header>
+
+  <main>
+    <div class="grid">
+      <section>
+        <h2>Patient feature input</h2>
+        <div class="actions">
+          <button class="ghost" type="button" id="loadBenign">Load benign sample</button>
+          <button class="ghost" type="button" id="loadMalignant">Load malignant sample</button>
+          <button class="primary" type="button" id="predictBtn">Predict</button>
+        </div>
+        <form id="featureForm" class="form-grid">
+          {% for col in feature_cols %}
+          <label>
+            {{ col }}
+            <input name="{{ col }}" type="number" step="any" required />
+          </label>
+          {% endfor %}
+        </form>
+      </section>
+
+      <section>
+        <h2>Prediction & explanation</h2>
+        <div class="result" id="resultBox">
+          <p class="muted">Load a sample or enter features, then click Predict.</p>
+        </div>
+        <div class="contrib" id="contribBox"></div>
+      </section>
+    </div>
+
+    <section>
+      <h2>Model comparison (held-out test set)</h2>
+      {% if leaderboard %}
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in leaderboard %}
+          <tr>
+            <td>{{ row.model }}</td>
+            <td>{{ '%.4f'|format(row.accuracy) }}</td>
+            <td>{{ '%.4f'|format(row.precision) }}</td>
+            <td>{{ '%.4f'|format(row.recall) }}</td>
+            <td>{{ '%.4f'|format(row.f1) }}</td>
+            <td>{{ '%.4f'|format(row.roc_auc) }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="muted">Train models first to populate the leaderboard.</p>
+      {% endif %}
+    </section>
+
+    <section>
+      <h2>Top SHAP features (global)</h2>
+      {% if importance %}
+      <table>
+        <thead><tr><th>Feature</th><th>Mean |SHAP|</th></tr></thead>
+        <tbody>
+          {% for row in importance %}
+          <tr>
+            <td>{{ row.feature }}</td>
+            <td>{{ '%.4f'|format(row.mean_abs_shap) }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="muted">Run explanations to populate SHAP importance.</p>
+      {% endif %}
+    </section>
+  </main>
+
+  <footer>
+    Decision-support prototype for academic use only — not a clinical diagnosis tool.
+  </footer>
+
+  <script>
+    const form = document.getElementById("featureForm");
+    const resultBox = document.getElementById("resultBox");
+    const contribBox = document.getElementById("contribBox");
+
+    function fillForm(data) {
+      for (const [k, v] of Object.entries(data)) {
+        const input = form.elements.namedItem(k);
+        if (input) input.value = v;
+      }
+    }
+
+    async function loadSample(kind) {
+      const res = await fetch(`/api/sample/${kind}`);
+      const data = await res.json();
+      fillForm(data);
+    }
+
+    document.getElementById("loadBenign").onclick = () => loadSample("benign");
+    document.getElementById("loadMalignant").onclick = () => loadSample("malignant");
+
+    document.getElementById("predictBtn").onclick = async () => {
+      const payload = {};
+      const fd = new FormData(form);
+      for (const [k, v] of fd.entries()) payload[k] = Number(v);
+      resultBox.innerHTML = `<p class="muted">Running prediction…</p>`;
+      contribBox.innerHTML = "";
+      const res = await fetch("/api/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.error) {
+        resultBox.innerHTML = `<p>${data.error}</p>`;
+        return;
+      }
+      const cls = data.label === "Malignant" ? "malignant" : "benign";
+      resultBox.innerHTML = `
+        <div class="label-pill ${cls}">${data.label}</div>
+        <div><strong>Malignant probability:</strong> ${(data.probability_malignant * 100).toFixed(2)}%</div>
+        <div><strong>Benign probability:</strong> ${(data.probability_benign * 100).toFixed(2)}%</div>
+        <div class="muted" style="margin-top:0.4rem">Model: ${data.model}</div>
+      `;
+      if (data.contributions?.length) {
+        const maxAbs = Math.max(...data.contributions.map(c => Math.abs(c.shap))) || 1;
+        contribBox.innerHTML = `<h2>Why this prediction?</h2>` + data.contributions.map(c => `
+          <div style="margin:0.55rem 0">
+            <div><strong>${c.feature}</strong> <span class="muted">(${c.shap >= 0 ? "pushes malignant" : "pushes benign"})</span></div>
+            <div class="muted">${c.meaning || ""}</div>
+            <div class="bar"><span style="width:${(Math.abs(c.shap) / maxAbs) * 100}%"></span></div>
+          </div>
+        `).join("");
+      }
+    };
+  </script>
+</body>
+</html>

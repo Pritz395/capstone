@@ -1,0 +1,7 @@
+,value
+n_samples,569.0
+n_features,30.0
+benign,357.0
+malignant,212.0
+malignant_rate,0.37258347978910367
+missing_values,0.0

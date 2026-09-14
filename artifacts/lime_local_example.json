@@ -1,0 +1,42 @@
+[
+  {
+    "feature": "area_worst > 0.40",
+    "weight": 0.13828753611945924
+  },
+  {
+    "feature": "concave_points_worst > 0.70",
+    "weight": 0.11581069340401472
+  },
+  {
+    "feature": "perimeter_worst > 0.56",
+    "weight": 0.10026388507803134
+  },
+  {
+    "feature": "radius_worst > 0.58",
+    "weight": 0.09043126611296251
+  },
+  {
+    "feature": "concave_points_mean > 0.63",
+    "weight": 0.0678773615248954
+  },
+  {
+    "feature": "area_se > 0.09",
+    "weight": 0.05818994828187531
+  },
+  {
+    "feature": "area_mean > 0.38",
+    "weight": 0.05581224863651153
+  },
+  {
+    "feature": "concavity_mean > 0.53",
+    "weight": 0.041573555405324474
+  },
+  {
+    "feature": "concavity_worst > 0.52",
+    "weight": 0.03697644324488532
+  },
+  {
+    "feature": "texture_mean > 0.56",
+    "weight": 0.031617115761141255
+  }
+]

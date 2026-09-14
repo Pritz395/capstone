@@ -1,0 +1,49 @@
+{
+  "model": "Random Forest",
+  "top_global_features": [
+    {
+      "feature": "area_worst",
+      "mean_abs_shap": 0.06578264579513443
+    },
+    {
+      "feature": "concave_points_worst",
+      "mean_abs_shap": 0.06078612770781748
+    },
+    {
+      "feature": "perimeter_worst",
+      "mean_abs_shap": 0.058954182160594996
+    },
+    {
+      "feature": "concave_points_mean",
+      "mean_abs_shap": 0.04412762162707219
+    },
+    {
+      "feature": "radius_worst",
+      "mean_abs_shap": 0.0417285659390315
+    },
+    {
+      "feature": "radius_mean",
+      "mean_abs_shap": 0.02297648031556226
+    },
+    {
+      "feature": "area_mean",
+      "mean_abs_shap": 0.02254383985159758
+    },
+    {
+      "feature": "area_se",
+      "mean_abs_shap": 0.022450555657331384
+    },
+    {
+      "feature": "concavity_mean",
+      "mean_abs_shap": 0.021483216030527386
+    },
+    {
+      "feature": "concavity_worst",
+      "mean_abs_shap": 0.02098912069737253
+    }
+  ],
+  "local_sample_index": 250,
+  "local_true_label": 1,
+  "local_prediction": 1,
+  "local_probability_malignant": 1.0
+}

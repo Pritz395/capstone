@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+*.egg-info/
+.ipynb_checkpoints/
+
+# Trained model binaries (regenerate with: python -m src.train)
+models/*.joblib
+
+# CatBoost training logs
+catboost_info/
+
+# Local env / IDE
+.env
+.idea/
+.vscode/
