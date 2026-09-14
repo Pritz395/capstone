@@ -2,6 +2,11 @@
 
 ## Start the UI (before the meeting)
 
+**Public demo (temporary tunnel — laptop must stay awake):**  
+https://crimes-whale-adapted-effectively.trycloudflare.com
+
+**Permanent hosting:** follow `docs/DEPLOY.md` (Render one-click). Until then, local:
+
 ```bash
 cd /Users/preetham/Desktop/Projekt/capstone
 source .venv/bin/activate
