@@ -16,10 +16,10 @@ MODELS_DIR = ROOT / "models"
 ARTIFACTS_DIR = ROOT / "artifacts"
 
 CSS = """
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
 
-html, body, [class*="css"] {
-  font-family: "DM Sans", system-ui, sans-serif;
+html, body, [class*="css"]  {
+  font-family: "DM Sans", system-ui, sans-serif !important;
   color: #142033;
 }
 
@@ -30,17 +30,27 @@ html, body, [class*="css"] {
     #f3efe8;
 }
 
-[data-testid="stHeader"] {
-  background: rgba(243, 239, 232, 0.85);
-}
+[data-testid="stHeader"] { background: transparent; }
+[data-testid="stToolbar"] { right: 0.6rem; }
 
 .block-container {
-  max-width: 1100px;
-  padding-top: 1.4rem;
-  padding-bottom: 2rem;
+  max-width: 1080px !important;
+  padding-top: 1.1rem !important;
+  padding-bottom: 2rem !important;
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
 }
 
-h1, h2, h3, .fraunces {
+h1 {
+  font-family: "Fraunces", Georgia, serif !important;
+  font-size: clamp(1.65rem, 3vw, 2.2rem) !important;
+  line-height: 1.15 !important;
+  margin: 0 0 0.35rem 0 !important;
+  color: #142033 !important;
+  font-weight: 700 !important;
+}
+
+h2, h3, h4 {
   font-family: "Fraunces", Georgia, serif !important;
   color: #142033 !important;
 }
@@ -51,132 +61,154 @@ h1, h2, h3, .fraunces {
   color: #0d5f5f;
   border: 1px solid #b7d7d2;
   border-radius: 999px;
-  padding: 0.28rem 0.75rem;
-  font-size: 0.82rem;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.65rem;
 }
 
 .sub {
   color: #5a6a7c;
   max-width: 62ch;
   line-height: 1.5;
-  margin: 0.35rem 0 1rem;
+  margin: 0 0 1rem 0;
+  font-size: 0.98rem;
 }
 
 .metrics {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.7rem;
-  margin: 0.4rem 0 0.9rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin: 0 0 0.85rem 0;
 }
-@media (max-width: 800px) {
+@media (max-width: 840px) {
   .metrics { grid-template-columns: 1fr 1fr; }
 }
 .metric {
   background: #fffcf7;
   border: 1px solid #d7cdc0;
   border-radius: 14px;
-  padding: 0.75rem 0.9rem;
-  box-shadow: 0 8px 22px rgba(20,32,51,0.04);
+  padding: 0.7rem 0.85rem;
+  box-shadow: 0 8px 20px rgba(20,32,51,0.035);
 }
-.metric .k { color: #5a6a7c; font-size: 0.78rem; }
+.metric .k { color: #5a6a7c; font-size: 0.76rem; }
 .metric .v {
   font-family: "Fraunces", Georgia, serif;
-  font-size: 1.3rem;
-  margin-top: 0.15rem;
+  font-size: 1.28rem;
+  margin-top: 0.12rem;
   color: #142033;
 }
 
 .steps {
   color: #5a6a7c;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   background: #efe8de;
   border-radius: 12px;
-  padding: 0.75rem 0.95rem;
-  margin-bottom: 0.85rem;
+  padding: 0.7rem 0.9rem;
+  margin: 0 0 0.95rem 0;
+  line-height: 1.45;
 }
 .steps strong { color: #142033; }
 
-.card {
+.panel {
   background: #fffcf7;
   border: 1px solid #d7cdc0;
   border-radius: 16px;
-  padding: 1rem 1.1rem 0.85rem;
-  box-shadow: 0 10px 28px rgba(20,32,51,0.04);
-  margin-bottom: 0.85rem;
+  padding: 0.95rem 1rem 0.75rem;
+  box-shadow: 0 10px 24px rgba(20,32,51,0.035);
+  margin-bottom: 0.9rem;
 }
-.card h3 {
+.panel-title {
   font-family: "Fraunces", Georgia, serif;
-  font-size: 1.12rem;
-  margin: 0 0 0.7rem;
+  font-size: 1.08rem;
+  margin: 0 0 0.65rem 0;
+  color: #142033;
 }
 
 .result-box {
   background: #f1ebe3;
   border-radius: 12px;
-  padding: 1rem;
-  min-height: 96px;
+  padding: 0.95rem 1rem;
 }
 .label-pill {
   display: inline-block;
-  padding: 0.35rem 0.7rem;
+  padding: 0.32rem 0.68rem;
   border-radius: 999px;
   font-weight: 700;
   margin-bottom: 0.45rem;
+  font-size: 0.92rem;
 }
 .benign { background: #d7f1e3; color: #1c7a4d; }
 .malignant { background: #f7dcdc; color: #a43737; }
+.muted { color: #5a6a7c; font-size: 0.85rem; }
 
-.contrib {
-  margin: 0.55rem 0;
-}
-.contrib .dir { color: #5a6a7c; font-size: 0.85rem; }
-.contrib .meaning { color: #5a6a7c; font-size: 0.8rem; margin-top: 0.1rem; }
+.contrib { margin: 0.5rem 0; }
+.contrib .dir { color: #5a6a7c; font-size: 0.82rem; }
+.contrib .meaning { color: #5a6a7c; font-size: 0.78rem; margin-top: 0.08rem; }
 .bar {
   height: 8px;
   border-radius: 999px;
   background: #e5ddd2;
   overflow: hidden;
-  margin-top: 0.25rem;
+  margin-top: 0.22rem;
 }
-.bar > span {
-  display: block;
-  height: 100%;
-  background: #c45c2a;
-}
+.bar > span { display: block; height: 100%; background: #c45c2a; }
 
 .foot {
   color: #5a6a7c;
-  font-size: 0.84rem;
-  margin-top: 0.8rem;
+  font-size: 0.82rem;
+  margin-top: 0.4rem;
 }
 
+/* Buttons */
 div.stButton > button {
-  border-radius: 10px;
-  font-weight: 650;
-  border: 0;
-  padding: 0.55rem 0.9rem;
+  border-radius: 10px !important;
+  font-weight: 650 !important;
+  border: 0 !important;
+  min-height: 2.55rem;
 }
 div.stButton > button[kind="primary"] {
-  background: #0d5f5f;
-  color: #fff;
+  background: #0d5f5f !important;
+  color: #fff !important;
 }
-div.stButton > button[kind="secondary"] {
-  background: #ebe3d8;
-  color: #142033;
+div.stButton > button[kind="secondary"],
+div.stButton > button:not([kind="primary"]) {
+  background: #ebe3d8 !important;
+  color: #142033 !important;
 }
 
-[data-testid="stNumberInput"] label {
-  font-size: 0.75rem !important;
+/* Compact number inputs — hide +/- steppers */
+[data-testid="stNumberInput"] button { display: none !important; }
+[data-testid="stNumberInput"] div[data-baseweb="input"] {
+  background: #fff !important;
+  border: 1px solid #d7cdc0 !important;
+  border-radius: 8px !important;
+}
+[data-testid="stNumberInput"] label p {
+  font-size: 0.72rem !important;
   color: #5a6a7c !important;
+  font-weight: 500 !important;
+}
+[data-testid="stNumberInput"] input {
+  padding-top: 0.35rem !important;
+  padding-bottom: 0.35rem !important;
+}
+
+/* Scrollable feature grid inside panel */
+.feature-scroll {
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 0.15rem;
 }
 
 [data-testid="stDataFrame"] {
   border: 1px solid #d7cdc0;
   border-radius: 12px;
   overflow: hidden;
+  background: #fffcf7;
 }
+
+hr { display: none; }
 """
 
 
@@ -232,16 +264,14 @@ def shap_contributions(model, best_name, feature_cols, Xs, importance):
         pass
 
     if importance is not None:
-        rows = []
-        for _, row in importance.head(8).iterrows():
-            rows.append(
-                {
-                    "feature": row["feature"],
-                    "shap": float(row["mean_abs_shap"]),
-                    "meaning": FEATURE_MEANINGS.get(feature_base(row["feature"]), ""),
-                }
-            )
-        return rows
+        return [
+            {
+                "feature": row["feature"],
+                "shap": float(row["mean_abs_shap"]),
+                "meaning": FEATURE_MEANINGS.get(feature_base(row["feature"]), ""),
+            }
+            for _, row in importance.head(8).iterrows()
+        ]
     return []
 
 
@@ -252,8 +282,38 @@ def sample_row(kind: str) -> dict:
     return {c: float(row[c]) for c in FEATURE_NAMES if c in df.columns}
 
 
-def inject_css() -> None:
-    st.markdown(f"<style>{CSS}</style>", unsafe_allow_html=True)
+def render_prediction(label: str, proba: float, best_name: str, contribs: list) -> None:
+    pill = "malignant" if label == "Malignant" else "benign"
+    st.markdown(
+        f"""
+        <div class="result-box">
+          <div class="label-pill {pill}">{label}</div>
+          <div><strong>Malignant probability:</strong> {proba*100:.2f}%</div>
+          <div><strong>Benign probability:</strong> {(1-proba)*100:.2f}%</div>
+          <div class="muted" style="margin-top:0.35rem">Model: {best_name}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    if not contribs:
+        return
+    st.markdown("##### Why this prediction?")
+    max_abs = max(abs(c["shap"]) for c in contribs) or 1.0
+    parts = []
+    for c in contribs:
+        direction = "pushes malignant" if c["shap"] >= 0 else "pushes benign"
+        width = min(abs(c["shap"]) / max_abs, 1.0) * 100
+        meaning = c["meaning"] or ""
+        parts.append(
+            f"""
+            <div class="contrib">
+              <div><strong>{c['feature']}</strong> <span class="dir">({direction})</span></div>
+              <div class="meaning">{meaning}</div>
+              <div class="bar"><span style="width:{width}%"></span></div>
+            </div>
+            """
+        )
+    st.markdown("".join(parts), unsafe_allow_html=True)
 
 
 def main():
@@ -263,10 +323,17 @@ def main():
         layout="wide",
         initial_sidebar_state="collapsed",
     )
-    inject_css()
+    st.markdown(f"<style>{CSS}</style>", unsafe_allow_html=True)
 
     model, scaler, feature_cols, best_name, leaderboard, importance = load_runtime()
     top = leaderboard.iloc[0] if leaderboard is not None and len(leaderboard) else None
+
+    # Seed widget state with a real sample (never show empty zeros)
+    if "ui_ready" not in st.session_state:
+        for col, val in sample_row("malignant").items():
+            st.session_state[f"feat_{col}"] = float(val)
+        st.session_state.auto_predict = True
+        st.session_state.ui_ready = True
 
     st.markdown('<div class="week-pill">Week 3 review · Capstone demo UI</div>', unsafe_allow_html=True)
     st.markdown("# Explainable AI for Early Breast Cancer Detection")
@@ -287,102 +354,87 @@ def main():
           <div class="metric"><div class="k">Recall (malignancy)</div><div class="v">{rec}</div></div>
           <div class="metric"><div class="k">ROC-AUC</div><div class="v">{auc}</div></div>
         </div>
-        <div class="steps"><strong>Demo in 15 seconds:</strong> click <strong>Load malignant sample</strong>
-        → read the label, probability, and “Why this prediction?” Then try a benign sample.</div>
+        <div class="steps"><strong>Demo in 15 seconds:</strong> a malignant sample loads automatically —
+        switch with <strong>Load benign / malignant sample</strong>, or tweak values and click <strong>Predict</strong>.</div>
         """,
         unsafe_allow_html=True,
     )
 
-    if "form_values" not in st.session_state:
-        st.session_state.form_values = {c: 0.0 for c in feature_cols}
-
-    b1, b2, b3 = st.columns([1, 1, 1])
+    b1, b2, b3 = st.columns(3)
     with b1:
         if st.button("Load benign sample", use_container_width=True):
-            st.session_state.form_values = sample_row("benign")
+            for col, val in sample_row("benign").items():
+                st.session_state[f"feat_{col}"] = float(val)
             st.session_state.auto_predict = True
+            st.rerun()
     with b2:
         if st.button("Load malignant sample", use_container_width=True):
-            st.session_state.form_values = sample_row("malignant")
+            for col, val in sample_row("malignant").items():
+                st.session_state[f"feat_{col}"] = float(val)
             st.session_state.auto_predict = True
+            st.rerun()
     with b3:
         predict_clicked = st.button("Predict", type="primary", use_container_width=True)
 
     left, right = st.columns([1.35, 1], gap="medium")
 
     with left:
-        st.markdown('<div class="card"><h3>1. Patient feature input</h3></div>', unsafe_allow_html=True)
+        st.markdown('<div class="panel"><div class="panel-title">1. Patient feature input</div>', unsafe_allow_html=True)
         values = {}
         cols = st.columns(3)
         for i, col in enumerate(feature_cols):
             with cols[i % 3]:
                 values[col] = st.number_input(
                     col,
-                    value=float(st.session_state.form_values.get(col, 0.0)),
                     format="%.5f",
                     key=f"feat_{col}",
                 )
-        st.session_state.form_values = values
+        st.markdown("</div>", unsafe_allow_html=True)
 
     run = predict_clicked or st.session_state.pop("auto_predict", False)
 
     with right:
-        st.markdown('<div class="card"><h3>2. Prediction & explanation</h3>', unsafe_allow_html=True)
+        st.markdown('<div class="panel"><div class="panel-title">2. Prediction & explanation</div>', unsafe_allow_html=True)
         if run:
             X = pd.DataFrame([[values[c] for c in feature_cols]], columns=feature_cols)
             Xs = pd.DataFrame(scaler.transform(X), columns=feature_cols)
             proba = float(model.predict_proba(Xs)[0][1])
             label = "Malignant" if proba >= 0.5 else "Benign"
-            pill = "malignant" if label == "Malignant" else "benign"
-            st.markdown(
-                f"""
-                <div class="result-box">
-                  <div class="label-pill {pill}">{label}</div>
-                  <div><strong>Malignant probability:</strong> {proba*100:.2f}%</div>
-                  <div><strong>Benign probability:</strong> {(1-proba)*100:.2f}%</div>
-                  <div class="dir" style="margin-top:0.35rem;color:#5a6a7c;font-size:0.85rem">Model: {best_name}</div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
             contribs = shap_contributions(model, best_name, feature_cols, Xs, importance)
-            if contribs:
-                st.markdown("#### Why this prediction?")
-                max_abs = max(abs(c["shap"]) for c in contribs) or 1.0
-                html = []
-                for c in contribs:
-                    direction = "pushes malignant" if c["shap"] >= 0 else "pushes benign"
-                    width = min(abs(c["shap"]) / max_abs, 1.0) * 100
-                    meaning = c["meaning"] or ""
-                    html.append(
-                        f"""
-                        <div class="contrib">
-                          <div><strong>{c['feature']}</strong> <span class="dir">({direction})</span></div>
-                          <div class="meaning">{meaning}</div>
-                          <div class="bar"><span style="width:{width}%"></span></div>
-                        </div>
-                        """
-                    )
-                st.markdown("".join(html), unsafe_allow_html=True)
+            # Cache last result so layout stays filled after widget interactions
+            st.session_state.last_result = {
+                "label": label,
+                "proba": proba,
+                "contribs": contribs,
+            }
+            render_prediction(label, proba, best_name, contribs)
+        elif "last_result" in st.session_state:
+            r = st.session_state.last_result
+            render_prediction(r["label"], r["proba"], best_name, r["contribs"])
         else:
             st.markdown(
-                '<div class="result-box"><span style="color:#5a6a7c">Load a sample, then click Predict.</span></div>',
+                '<div class="result-box"><span class="muted">Load a sample, then click Predict.</span></div>',
                 unsafe_allow_html=True,
             )
         st.markdown("</div>", unsafe_allow_html=True)
 
-    st.markdown('<div class="card"><h3>3. Model comparison (held-out test set)</h3></div>', unsafe_allow_html=True)
+    st.markdown('<div class="panel"><div class="panel-title">3. Model comparison (held-out test set)</div>', unsafe_allow_html=True)
     if leaderboard is not None:
         show = leaderboard.copy()
-        show["deployed"] = show["model"].eq(best_name).map({True: "← deployed", False: ""})
-        st.dataframe(show, use_container_width=True, hide_index=True)
-    else:
-        st.write("Leaderboard not found.")
+        for col in ["accuracy", "precision", "recall", "f1", "roc_auc"]:
+            if col in show.columns:
+                show[col] = show[col].map(lambda x: f"{x:.4f}")
+        show.insert(0, "", show["model"].eq(best_name).map({True: "← deployed", False: ""}))
+        st.dataframe(show, use_container_width=True, hide_index=True, height=320)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    st.markdown('<div class="card"><h3>4. Global SHAP importance</h3></div>', unsafe_allow_html=True)
+    st.markdown('<div class="panel"><div class="panel-title">4. Global SHAP importance</div>', unsafe_allow_html=True)
     if importance is not None:
-        st.dataframe(importance.head(10), use_container_width=True, hide_index=True)
+        imp = importance.head(10).copy()
+        if "mean_abs_shap" in imp.columns:
+            imp["mean_abs_shap"] = imp["mean_abs_shap"].map(lambda x: f"{x:.4f}")
+        st.dataframe(imp, use_container_width=True, hide_index=True, height=280)
+    st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown(
         '<p class="foot">Academic decision-support prototype for CSE capstone review — not a clinical diagnostic device.</p>',
