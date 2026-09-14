@@ -1,16 +1,20 @@
 # Deploy the demo UI (always-on, no paid plan)
 
-Render asked for payment — **skip it.** Use Streamlit Community Cloud instead (free for public repos).
+## Live URL
 
-## Option A — Streamlit Community Cloud (recommended, free)
+**https://capstone-jjgpitxnzxxtmljc6fhs75.streamlit.app/**
+
+Hosted on Streamlit Community Cloud (free). Render was skipped (payment wall).
+
+## Option A — Streamlit Community Cloud (done)
 
 1. Open **https://share.streamlit.io/** (or https://streamlit.io/cloud)
 2. Sign in with **GitHub** (`Pritz395`)
 3. **Create app** → pick repo `Pritz395/capstone` → branch `main`
 4. Main file: **`streamlit_app.py`**
-5. Deploy → wait a few minutes → you get a permanent `*.streamlit.app` URL
+5. Deploy → permanent `*.streamlit.app` URL
 
-That’s the link to show your professor (no laptop relaunch needed).
+To redeploy after code changes: push to `main` (Streamlit usually auto-updates) or click **Reboot** / **Rerun** in the app settings.
 
 ## Option B — Temporary public URL (laptop must stay awake)
 

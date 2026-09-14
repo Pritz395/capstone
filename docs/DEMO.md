@@ -2,8 +2,10 @@
 
 ## Start the UI (before the meeting)
 
-**Always-on (free):** deploy via Streamlit Cloud — see `docs/DEPLOY.md`  
-Main file: `streamlit_app.py`
+**Live demo (always-on):**  
+https://capstone-jjgpitxnzxxtmljc6fhs75.streamlit.app/
+
+That’s the link to open for your professor — no local relaunch needed.
 
 **Local Flask (optional):**
 
@@ -20,6 +22,8 @@ Open: **http://127.0.0.1:5000**
 ```bash
 streamlit run streamlit_app.py
 ```
+
+If models are missing locally:
 
 ```bash
 python -m src.train

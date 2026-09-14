@@ -32,7 +32,8 @@ streamlit run streamlit_app.py   # demo UI (also deployed on Streamlit Cloud)
 # or: python app.py              # Flask UI @ http://127.0.0.1:5000
 ```
 
-**Always-on demo:** see [`docs/DEPLOY.md`](docs/DEPLOY.md) (Streamlit Community Cloud — free, no card).
+**Always-on demo:** https://capstone-jjgpitxnzxxtmljc6fhs75.streamlit.app/  
+(see also [`docs/DEPLOY.md`](docs/DEPLOY.md))
 
 ## Repo layout
 
