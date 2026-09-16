@@ -6,7 +6,6 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Keep only inference artifacts in git (needed for cloud deploy).
-# Other trained models stay local / regenerable via: python -m src.train
 models/*.joblib
 !models/best_model.joblib
 !models/scaler.joblib
@@ -14,6 +13,12 @@ models/*.joblib
 
 # CatBoost training logs
 catboost_info/
+
+# Large / regenerable raw datasets (fetch via scripts/fetch_datasets.py)
+data/busi/raw/
+data/breakhis/
+data/**/*.parquet
+data/**/.cache/
 
 # Local env / IDE
 .env

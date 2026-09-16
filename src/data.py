@@ -1,4 +1,9 @@
-"""Load and prepare the Wisconsin Diagnostic Breast Cancer (WDBC) dataset."""
+"""Load and prepare the Wisconsin Diagnostic Breast Cancer (WDBC) dataset.
+
+This module remains the canonical WDBC (schema wdbc_v1_30features) loader used by
+the existing training / UI path. Multi-dataset corpus building lives in
+`src/datasets/` and `scripts/build_corpus.py` — do not merge foreign schemas here.
+"""
 
 from __future__ import annotations
 

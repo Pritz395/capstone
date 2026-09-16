@@ -1,0 +1,41 @@
+# Dataset registry for the multi-source breast-cancer corpus.
+# Schemas are NOT interchangeable. Never row-bind incompatible feature matrices.
+
+project:
+  random_seed: 42
+  label_column: diagnosis
+  provenance_column: dataset_id
+  min_corpus_size: 2000
+
+datasets:
+  wdbc:
+    enabled: true
+    modality: tabular_fna_morphometry
+    schema_id: wdbc_v1_30features
+    path: data/wdbc
+    task: binary_benign_malignant
+    notes: "Wisconsin Diagnostic Breast Cancer — primary Week 1–3 track."
+
+  wbcd_original:
+    enabled: true
+    modality: tabular_cytology_ordinal
+    schema_id: wbcd_v1_9features
+    path: data/wbcd
+    task: binary_benign_malignant
+    notes: "Wisconsin Original (UCI id=15). Different 9 ordinal features — NOT compatible with WDBC columns."
+
+  busi:
+    enabled: true
+    modality: ultrasound_image
+    schema_id: busi_v1_image
+    path: data/busi
+    task: multiclass_normal_benign_malignant
+    notes: "BUSI ultrasound images. Image modality — do not merge into WDBC feature matrix."
+
+  breakhis:
+    enabled: false
+    modality: histopathology_image
+    schema_id: breakhis_v1_image
+    path: data/breakhis
+    task: binary_benign_malignant
+    notes: "BreakHis (~7909 images). Enable after download for path toward 20K."

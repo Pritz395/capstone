@@ -1,0 +1,17 @@
+{
+  "n_samples": 2024,
+  "n_datasets": 3,
+  "datasets": [
+    "wdbc",
+    "wbcd_original",
+    "busi"
+  ],
+  "schemas": [
+    "busi_v1_image",
+    "wbcd_v1_9features",
+    "wdbc_v1_30features"
+  ],
+  "min_samples_required": 2000,
+  "passes_min_samples": true,
+  "note": "Corpus counts VALID samples across modalities/schemas. Feature matrices are NEVER merged across incompatible schemas."
+}

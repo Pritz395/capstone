@@ -35,6 +35,8 @@ streamlit run streamlit_app.py   # demo UI (also deployed on Streamlit Cloud)
 **Always-on demo:** https://capstone-jjgpitxnzxxtmljc6fhs75.streamlit.app/  
 (see also [`docs/DEPLOY.md`](docs/DEPLOY.md))
 
+**Multi-dataset corpus (mentor 2K milestone):** **2,024** valid samples across WDBC + WBCD + BUSI — see [`docs/DATASETS.md`](docs/DATASETS.md). Schemas are **not** merged; WDBC training path is unchanged.
+
 ## Repo layout
 
 ```

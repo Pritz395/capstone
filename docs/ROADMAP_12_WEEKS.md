@@ -25,6 +25,7 @@ A working system that:
 | **1** | Problem & resources | Title/scope, resource inventory, paper folder, GitHub repo | **Done** |
 | **2** | Data understanding | WDBC loaded, EDA, feature meanings, train/test strategy | **Done** |
 | **3** | Baseline modeling | Multi-model training, metrics, leaderboard, best model saved | **Done** |
+| **3b** | Corpus expansion | Multi-dataset registry → **2,024** valid samples (WDBC+WBCD+BUSI); schemas isolated | **Done** |
 | **4** | Tuning & robustness | Hyperparameter search, cross-validation, class-imbalance checks | Planned |
 | **5** | Deep tabular models | MLP refinement; optional LightGBM/CatBoost tuning bake-off | Planned |
 | **6** | Explainability (SHAP) | Global + local SHAP reports tied to best model | Planned (code scaffold exists) |

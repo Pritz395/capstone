@@ -1,0 +1,5 @@
+dataset_id,schema_id,modality,n_samples,n_binary_labeled,n_benign,n_malignant,has_feature_matrix
+wdbc,wdbc_v1_30features,tabular_fna_morphometry,569,569,357,212,True
+wbcd_original,wbcd_v1_9features,tabular_cytology_ordinal,675,675,439,236,True
+busi,busi_v1_image,ultrasound_image,780,647,437,210,False
+ALL,—,mixed,2024,1891,1233,658,False
