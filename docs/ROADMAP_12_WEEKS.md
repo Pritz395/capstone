@@ -2,7 +2,7 @@
 
 **Project:** An Explainable AI Framework for Early Breast Cancer Detection and Classification  
 **Scope (locked):** Wisconsin Diagnostic Breast Cancer (WDBC) tabular features → ML/DL models → metrics → XAI → web UI  
-**Current status:** **Week 3 complete** (as of this milestone push)
+**Current status:** **Week 3 complete** + **2K corpus** + multimodal architecture locked in [`docs/ARCHITECTURE.md`](ARCHITECTURE.md)
 
 ---
 
