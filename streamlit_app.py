@@ -223,7 +223,9 @@ def load_runtime():
     leaderboard = pd.read_csv(lb_path) if lb_path.exists() else None
     imp_path = ARTIFACTS_DIR / "shap_feature_importance.csv"
     importance = pd.read_csv(imp_path) if imp_path.exists() else None
-    return model, scaler, feature_cols, best_name, leaderboard, importance
+    corpus_path = ARTIFACTS_DIR / "corpus" / "summary.csv"
+    corpus_summary = pd.read_csv(corpus_path) if corpus_path.exists() else None
+    return model, scaler, feature_cols, best_name, leaderboard, importance, corpus_summary
 
 
 def feature_base(name: str) -> str:
@@ -325,8 +327,13 @@ def main():
     )
     st.markdown(f"<style>{CSS}</style>", unsafe_allow_html=True)
 
-    model, scaler, feature_cols, best_name, leaderboard, importance = load_runtime()
+    model, scaler, feature_cols, best_name, leaderboard, importance, corpus_summary = load_runtime()
     top = leaderboard.iloc[0] if leaderboard is not None and len(leaderboard) else None
+    corpus_n = None
+    if corpus_summary is not None and len(corpus_summary):
+        all_row = corpus_summary[corpus_summary["dataset_id"] == "ALL"]
+        if len(all_row):
+            corpus_n = int(all_row.iloc[0]["n_samples"])
 
     # Seed widget state with a real sample (never show empty zeros)
     if "ui_ready" not in st.session_state:
@@ -335,30 +342,44 @@ def main():
         st.session_state.auto_predict = True
         st.session_state.ui_ready = True
 
-    st.markdown('<div class="week-pill">Week 3 review · Capstone demo UI</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="week-pill">Week 3 · Live demo · Multi-dataset corpus ready</div>',
+        unsafe_allow_html=True,
+    )
     st.markdown("# Explainable AI for Early Breast Cancer Detection")
     st.markdown(
         '<p class="sub">Live demo of our trained classifier on Wisconsin Diagnostic Breast Cancer '
-        "(WDBC) features: predict Benign vs Malignant, then show which features drove the decision (SHAP).</p>",
+        "(WDBC) features: predict Benign vs Malignant, then show which features drove the decision (SHAP). "
+        "Project corpus now includes WDBC + WBCD + BUSI (schemas kept separate).</p>",
         unsafe_allow_html=True,
     )
 
     acc = f"{top['accuracy']*100:.1f}%" if top is not None else "—"
     rec = f"{top['recall']*100:.1f}%" if top is not None else "—"
     auc = f"{top['roc_auc']:.3f}" if top is not None else "—"
+    corpus_v = f"{corpus_n:,}" if corpus_n is not None else "—"
     st.markdown(
         f"""
         <div class="metrics">
           <div class="metric"><div class="k">Deployed model</div><div class="v">{best_name}</div></div>
           <div class="metric"><div class="k">Test accuracy</div><div class="v">{acc}</div></div>
           <div class="metric"><div class="k">Recall (malignancy)</div><div class="v">{rec}</div></div>
-          <div class="metric"><div class="k">ROC-AUC</div><div class="v">{auc}</div></div>
+          <div class="metric"><div class="k">Corpus samples</div><div class="v">{corpus_v}</div></div>
         </div>
         <div class="steps"><strong>Demo in 15 seconds:</strong> a malignant sample loads automatically —
-        switch with <strong>Load benign / malignant sample</strong>, or tweak values and click <strong>Predict</strong>.</div>
+        switch with <strong>Load benign / malignant sample</strong>, or tweak values and click <strong>Predict</strong>.
+        ROC-AUC on WDBC holdout: <strong>{auc}</strong>.</div>
         """,
         unsafe_allow_html=True,
     )
+
+    if corpus_summary is not None:
+        with st.expander("Multi-dataset corpus (2K+ milestone)", expanded=False):
+            st.caption(
+                "Valid samples across modalities. Feature schemas are isolated — "
+                "we do not merge incompatible columns into one fake table."
+            )
+            st.dataframe(corpus_summary, use_container_width=True, hide_index=True)
 
     b1, b2, b3 = st.columns(3)
     with b1:
