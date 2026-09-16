@@ -10,32 +10,40 @@ project:
 datasets:
   wdbc:
     enabled: true
-    modality: tabular_fna_morphometry
+    modality: tabular
     schema_id: wdbc_v1_30features
     path: data/wdbc
     task: binary_benign_malignant
-    notes: "Wisconsin Diagnostic Breast Cancer — primary Week 1–3 track."
+    n_features: 30
+    license: "UCI ML Repository — cite Wolberg et al."
+    notes: "Wisconsin Diagnostic Breast Cancer — primary Week 1–3 tabular baseline."
 
   wbcd_original:
     enabled: true
-    modality: tabular_cytology_ordinal
+    modality: tabular
     schema_id: wbcd_v1_9features
     path: data/wbcd
     task: binary_benign_malignant
-    notes: "Wisconsin Original (UCI id=15). Different 9 ordinal features — NOT compatible with WDBC columns."
+    n_features: 9
+    license: "UCI ML Repository (id=15) — cite Wolberg (1990)."
+    notes: "Wisconsin Original. Different 9 ordinal features — NOT compatible with WDBC columns."
 
   busi:
     enabled: true
-    modality: ultrasound_image
+    modality: image
     schema_id: busi_v1_image
     path: data/busi
     task: multiclass_normal_benign_malignant
-    notes: "BUSI ultrasound images. Image modality — do not merge into WDBC feature matrix."
+    n_features: null
+    license: "Cite Al-Dhabyani et al., Data in Brief 2020; HF mirror MedOtter/BUSI."
+    notes: "BUSI ultrasound images. Image modality for Week 5+; registered in corpus only for Week 3–4."
 
   breakhis:
     enabled: false
-    modality: histopathology_image
+    modality: image
     schema_id: breakhis_v1_image
     path: data/breakhis
     task: binary_benign_malignant
-    notes: "BreakHis (~7909 images). Enable after download for path toward 20K."
+    n_features: null
+    license: "Non-commercial research — cite Spanhol et al., IEEE TBME 2016."
+    notes: "BreakHis (~7909 images). Enable after download for Week 8+ scale-up."

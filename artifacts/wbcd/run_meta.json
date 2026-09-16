@@ -1,0 +1,20 @@
+{
+  "dataset": "wbcd",
+  "n_samples": 675,
+  "n_features": 9,
+  "feature_cols": [
+    "clump_thickness",
+    "uniformity_cell_size",
+    "uniformity_cell_shape",
+    "marginal_adhesion",
+    "single_epithelial_cell_size",
+    "bare_nuclei",
+    "bland_chromatin",
+    "normal_nucleoli",
+    "mitoses"
+  ],
+  "train_size": 540,
+  "test_size": 135,
+  "best_model": "XGBoost",
+  "note": "Trained on this schema only \u2014 not on the full multi-dataset corpus."
+}

@@ -10,6 +10,8 @@ models/*.joblib
 !models/best_model.joblib
 !models/scaler.joblib
 !models/feature_cols.joblib
+models/tabular/**/*.joblib
+!models/tabular/**/best_model_name.txt
 
 # CatBoost training logs
 catboost_info/

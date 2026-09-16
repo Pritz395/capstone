@@ -1,8 +1,7 @@
 """Load and prepare the Wisconsin Diagnostic Breast Cancer (WDBC) dataset.
 
-This module remains the canonical WDBC (schema wdbc_v1_30features) loader used by
-the existing training / UI path. Multi-dataset corpus building lives in
-`src/datasets/` and `scripts/build_corpus.py` — do not merge foreign schemas here.
+Canonical WDBC (schema wdbc_v1_30features) loader for training / UI.
+Multi-dataset corpus building lives in `src/datasets/` — do not merge foreign schemas here.
 """
 
 from __future__ import annotations
@@ -10,8 +9,8 @@ from __future__ import annotations
 from pathlib import Path
 
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+
+from src.preprocessing.tabular import prepare_tabular_splits as _prepare_tabular_splits
 
 FEATURE_NAMES = [
     "radius_mean",
@@ -47,7 +46,7 @@ FEATURE_NAMES = [
 ]
 
 FEATURE_MEANINGS = {
-    "radius": "Mean of distances from center to points on the nucleus perimeter",
+    "radius": "Mean of distances from nucleus center to points on the perimeter",
     "texture": "Standard deviation of gray-scale values in the nucleus",
     "perimeter": "Perimeter length of the nucleus contour",
     "area": "Area of the nucleus",
@@ -77,7 +76,6 @@ def load_wdbc(csv_path: Path | None = None) -> pd.DataFrame:
         df = pd.read_csv(csv_path, header=None, names=columns)
     else:
         df = pd.read_csv(csv_path)
-        # Normalize common Kaggle / CSV header variants
         rename = {c: c.strip().replace(" ", "_") for c in df.columns}
         df = df.rename(columns=rename)
         if "Unnamed:_32" in df.columns:
@@ -94,7 +92,6 @@ def load_wdbc(csv_path: Path | None = None) -> pd.DataFrame:
 
     feature_cols = [c for c in FEATURE_NAMES if c in df.columns]
     if len(feature_cols) != 30:
-        # Fall back to all non-label columns
         feature_cols = [c for c in df.columns if c != "diagnosis"]
 
     df = df[["diagnosis", *feature_cols]].dropna()
@@ -106,31 +103,22 @@ def prepare_splits(
     test_size: float = 0.2,
     random_state: int = 42,
 ):
-    """Return scaled train/test splits and the fitted scaler."""
+    """Return scaled train/test splits and the fitted scaler (WDBC only)."""
     if df is None:
         df = load_wdbc()
 
     feature_cols = [c for c in df.columns if c != "diagnosis"]
-    X = df[feature_cols]
-    y = df["diagnosis"].astype(int)
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X,
-        y,
+    split = _prepare_tabular_splits(
+        df[feature_cols],
+        df["diagnosis"],
         test_size=test_size,
         random_state=random_state,
-        stratify=y,
     )
-
-    scaler = StandardScaler()
-    X_train_s = pd.DataFrame(
-        scaler.fit_transform(X_train),
-        columns=feature_cols,
-        index=X_train.index,
+    return (
+        split.X_train,
+        split.X_test,
+        split.y_train,
+        split.y_test,
+        split.scaler,
+        split.feature_cols,
     )
-    X_test_s = pd.DataFrame(
-        scaler.transform(X_test),
-        columns=feature_cols,
-        index=X_test.index,
-    )
-    return X_train_s, X_test_s, y_train, y_test, scaler, feature_cols
