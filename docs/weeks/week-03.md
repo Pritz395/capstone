@@ -27,6 +27,9 @@ WDBC baseline → expanded corpus with WBCD + BUSI (images registered only) → 
 
 ## Important wording
 
+**Accurate mentor line:**  
+“2,024-sample multi-modal corpus established; **WDBC remains the current trained baseline**; WBCD and BUSI are integrated into the dataset/provenance layer and will feed the subsequent multimodal ML/DL pipeline.”
+
 Say: **“multi-dataset corpus: 2,024 samples.”**  
 Do **not** say: “one model trained on 2,024 unified rows.”
 

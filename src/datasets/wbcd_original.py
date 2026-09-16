@@ -10,7 +10,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from src.datasets.base import DatasetSpec, LoadedDataset, assert_manifest, normalize_binary_label
+from src.datasets.base import DatasetSpec, LoadedDataset, assert_manifest, normalize_binary_label, relative_source_path
 
 FEATURE_NAMES = [
     "clump_thickness",
@@ -71,7 +71,7 @@ def load(spec: DatasetSpec, root: Path) -> LoadedDataset:
             "modality": spec.modality,
             "label_raw": y.map({0: "benign", 1: "malignant"}),
             "label_binary": y.astype("Int64"),
-            "source_path": str(path),
+            "source_path": relative_source_path(path, root),
             "source_id": ids,
         }
     )

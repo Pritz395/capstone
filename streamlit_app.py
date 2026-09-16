@@ -343,14 +343,14 @@ def main():
         st.session_state.ui_ready = True
 
     st.markdown(
-        '<div class="week-pill">Week 3 · Live demo · Multi-dataset corpus ready</div>',
+        '<div class="week-pill">Week 3–4 · WDBC live baseline · 2K corpus (not one merged train set)</div>',
         unsafe_allow_html=True,
     )
     st.markdown("# Explainable AI for Early Breast Cancer Detection")
     st.markdown(
-        '<p class="sub">Live demo of our trained classifier on Wisconsin Diagnostic Breast Cancer '
-        "(WDBC) features: predict Benign vs Malignant, then show which features drove the decision (SHAP). "
-        "Project corpus now includes WDBC + WBCD + BUSI (schemas kept separate).</p>",
+        '<p class="sub">Live predictor uses the <strong>WDBC tabular</strong> baseline. '
+        "A separate multi-dataset corpus (WDBC + WBCD + BUSI = 2,024 samples) is tracked with "
+        "schema/modality provenance — WBCD/BUSI are <strong>not</strong> merged into this model’s training table.</p>",
         unsafe_allow_html=True,
     )
 
@@ -374,10 +374,10 @@ def main():
     )
 
     if corpus_summary is not None:
-        with st.expander("Multi-dataset corpus (2K+ milestone)", expanded=False):
+        with st.expander("Multi-dataset corpus (2,024 samples — provenance layer)", expanded=False):
             st.caption(
-                "Valid samples across modalities. Feature schemas are isolated — "
-                "we do not merge incompatible columns into one fake table."
+                "Valid samples across modalities/schemas. This is NOT a single training dataframe. "
+                "The live model above is trained on WDBC only. Feature schemas are never merged."
             )
             st.dataframe(corpus_summary, use_container_width=True, hide_index=True)
 

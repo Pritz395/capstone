@@ -19,7 +19,7 @@ To redeploy after code changes: push to `main` (Streamlit usually auto-updates) 
 ## Option B — Temporary public URL (laptop must stay awake)
 
 ```bash
-cd /Users/preetham/Desktop/Projekt/capstone
+# from repo root
 source .venv/bin/activate
 python app.py
 # other terminal:

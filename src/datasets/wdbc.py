@@ -7,7 +7,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.data import FEATURE_NAMES, load_wdbc
-from src.datasets.base import DatasetSpec, LoadedDataset, assert_manifest
+from src.datasets.base import DatasetSpec, LoadedDataset, assert_manifest, relative_source_path
 
 
 def load(spec: DatasetSpec, root: Path) -> LoadedDataset:
@@ -51,7 +51,7 @@ def load(spec: DatasetSpec, root: Path) -> LoadedDataset:
             "modality": spec.modality,
             "label_raw": y.map({0: "benign", 1: "malignant"}),
             "label_binary": y.astype("Int64"),
-            "source_path": str(path),
+            "source_path": relative_source_path(path, root),
             "source_id": ids.astype(str),
         }
     )

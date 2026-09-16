@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from src.datasets.base import DatasetSpec, LoadedDataset, assert_manifest, normalize_binary_label
+from src.datasets.base import DatasetSpec, LoadedDataset, assert_manifest, normalize_binary_label, relative_source_path
 
 
 def load(spec: DatasetSpec, root: Path) -> LoadedDataset:
@@ -44,7 +44,7 @@ def load(spec: DatasetSpec, root: Path) -> LoadedDataset:
                 "modality": spec.modality,
                 "label_raw": raw,
                 "label_binary": normalize_binary_label(raw),
-                "source_path": str(img),
+                "source_path": relative_source_path(img, root),
                 "source_id": img.stem,
             }
         )

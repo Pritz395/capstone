@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any
 
 import pandas as pd
@@ -16,6 +17,17 @@ REQUIRED_MANIFEST_COLUMNS = [
     "label_binary",
     "source_path",
 ]
+
+
+def relative_source_path(path: Path | str, root: Path) -> str:
+    """Store repo-relative provenance paths (never absolute machine paths)."""
+    p = Path(path).resolve()
+    root = root.resolve()
+    try:
+        return p.relative_to(root).as_posix()
+    except ValueError:
+        # Fallback: keep basename under a logical data/ prefix rather than /Users/...
+        return Path("data").joinpath(p.name).as_posix()
 
 
 @dataclass(frozen=True)

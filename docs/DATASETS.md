@@ -70,7 +70,7 @@ Every row in `manifest.csv` has: `sample_uid`, `dataset_id`, `schema_id`, `modal
 ## How to run (verify ≥2000)
 
 ```bash
-cd /Users/preetham/Desktop/Projekt/capstone
+# from repo root
 source .venv/bin/activate
 pip install -r requirements-dev.txt
 

@@ -10,7 +10,7 @@ That’s the link to open for your professor — no local relaunch needed.
 **Local Flask (optional):**
 
 ```bash
-cd /Users/preetham/Desktop/Projekt/capstone
+# from repo root
 source .venv/bin/activate
 python app.py
 ```
@@ -61,7 +61,7 @@ python app.py
 | Ask | Show |
 |---|---|
 | Data? | `data/wdbc/` + Week 2 EDA plots in `artifacts/eda/` |
-| Plan? | `docs/ROADMAP_12_WEEKS.md` (we’re at Week 3) |
+| Plan? | `docs/ROADMAP_12_WEEKS.md` (we’re at Week 3–4) |
 | Papers? | `papers/` + `research/00_RESOURCE_INVENTORY.md` |
 | GitHub? | https://github.com/Pritz395/capstone |
 

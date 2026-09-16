@@ -11,14 +11,14 @@ from pathlib import Path
 
 import pandas as pd
 
-from src.datasets.base import DatasetSpec, LoadedDataset, assert_manifest, normalize_binary_label
+from src.datasets.base import DatasetSpec, LoadedDataset, assert_manifest, normalize_binary_label, relative_source_path
 
 
 def load(spec: DatasetSpec, root: Path) -> LoadedDataset:
     data_dir = root / spec.path
     parquet = data_dir / "raw" / "data" / "train-00000-of-00001.parquet"
     if not parquet.exists():
-        folder_manifest = _from_folders(spec, data_dir)
+        folder_manifest = _from_folders(spec, data_dir, root)
         if folder_manifest is not None:
             return folder_manifest
         raise FileNotFoundError(
@@ -53,7 +53,7 @@ def load(spec: DatasetSpec, root: Path) -> LoadedDataset:
             "modality": spec.modality,
             "label_raw": labels_raw,
             "label_binary": pd.array(label_binary, dtype="Int64"),
-            "source_path": str(parquet),
+            "source_path": relative_source_path(parquet, root),
             "source_id": df["image_id"].astype(str),
         }
     )
@@ -70,7 +70,7 @@ def load(spec: DatasetSpec, root: Path) -> LoadedDataset:
     )
 
 
-def _from_folders(spec: DatasetSpec, data_dir: Path) -> LoadedDataset | None:
+def _from_folders(spec: DatasetSpec, data_dir: Path, root: Path) -> LoadedDataset | None:
     rows = []
     for label in ("benign", "malignant", "normal"):
         folder = data_dir / label
@@ -86,7 +86,7 @@ def _from_folders(spec: DatasetSpec, data_dir: Path) -> LoadedDataset | None:
                     "modality": spec.modality,
                     "label_raw": label,
                     "label_binary": binary,
-                    "source_path": str(img),
+                    "source_path": relative_source_path(img, root),
                     "source_id": img.stem,
                 }
             )
